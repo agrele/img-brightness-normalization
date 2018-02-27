@@ -11,8 +11,11 @@
 
 	<p>You can hover over an image to view it without the overlay, and see the percentage brightness found by the calculation.</p>
 
-	<p><em>Credits to <a href="https://github.com/matkl/average-color/" target="_blank">matkl</a> for the "average" color calculation and to <a href="https://stackoverflow.com/a/596241/3083792" target="_blank">Franci Penov</a> for the brightness calculation based on that color.</em></p>
+	<div style="font-style: italic; font-size: .8em; opacity: .8;">
 
+		<p>Credits to <a href="https://github.com/matkl/average-color/" target="_blank">Matkl</a> for the "average" color calculation and to <a href="https://stackoverflow.com/a/596241/3083792" target="_blank">Franci Penov</a> for the brightness calculation based on that color. Photos courtesy of <a href="https://unsplash.com/" target="_blank">Unsplash</a>.</p>
+
+	</div>
 </div>
 
 <!-- Fork me on Github ! -->
@@ -22,30 +25,12 @@
 
 <!-- The actual contents -->
 <div class="imageWrapper">
-	<div class="imageBackground" data-background="images/photo-1446770145316-10a05382c470.jpg">
-		<div class="dark-overlay"></div>
-		<div class="luminosity-text"></div>
-	</div>
-	<div class="imageBackground" data-background="images/photo-1463194537334-3940784aa69a.jpg">
-		<div class="dark-overlay"></div>
-		<div class="luminosity-text"></div>
-	</div>
-	<div class="imageBackground" data-background="images/photo-1489684141651-7e45b4e77b3a.jpg">
-		<div class="dark-overlay"></div>
-		<div class="luminosity-text"></div>
-	</div>
-	<div class="imageBackground" data-background="images/photo-1483119624769-b1a73c256500.jpg">
-		<div class="dark-overlay"></div>
-		<div class="luminosity-text"></div>
-	</div>
-	<div class="imageBackground" data-background="images/photo-1517875926585-feb5360f5073.jpg">
-		<div class="dark-overlay"></div>
-		<div class="luminosity-text"></div>
-	</div>
-	<div class="imageBackground" data-background="images/photo-1518127864129-8d0834d765bc.jpg">
-		<div class="dark-overlay"></div>
-		<div class="luminosity-text"></div>
-	</div>
+	<div class="imageBackground" data-background="images/photo-1446770145316-10a05382c470.jpg"></div>
+	<div class="imageBackground" data-background="images/photo-1463194537334-3940784aa69a.jpg"></div>
+	<div class="imageBackground" data-background="images/photo-1489684141651-7e45b4e77b3a.jpg"></div>
+	<div class="imageBackground" data-background="images/photo-1483119624769-b1a73c256500.jpg"></div>
+	<div class="imageBackground" data-background="images/photo-1517875926585-feb5360f5073.jpg"></div>
+	<div class="imageBackground" data-background="images/photo-1518127864129-8d0834d765bc.jpg"></div>
 </div>
 
 <style>
@@ -96,10 +81,16 @@
 
 </style>
 
+		
 
 <script>
 
 	document.querySelectorAll('.imageBackground').forEach(function(div) {
+
+		/* Create the dark overlay and adds text wrapper to display the luminosity percentage*/
+		div.innerHTML =
+			'<div class="dark-overlay"></div>' +
+			'<div class="luminosity-text"></div>'
 
 		/* Get the div's children for manipulation later on */
 		var darkOverlay = div.querySelector('.dark-overlay')
