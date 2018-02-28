@@ -2,6 +2,10 @@
 
 In a work project, the UI guys had defined large parts of the interface as text over image. To improve legibility, I experimented with ways to automatically darken an image based on its original brightness.
 
+## Demo
+
+See the plugin in action : [https://antoningrele.github.io/img-brightness-normalization/](https://antoningrele.github.io/img-brightness-normalization/)
+
 ## How to use
 
 ### Step 1
@@ -24,12 +28,6 @@ You can configure the following attributes when calling `normalizeBrightness()` 
 *	**coeff** (default=1.25) : the dark overlay's opacity is equal to the images brightness divided by this value. A value of "1" means the image brightness is compensated for entirely (a pure white image would become black). Higher values reduce the intensity of the filter.
 
 *	**callback** (default=null) : called at the end of the brightness calculations, is given the darkened element as an argument. It's used in the demo to display the source luminosity, for example
-
-## Demo
-
-[https://antoningrele.github.io/img-brightness-normalization/](https://antoningrele.github.io/img-brightness-normalization/)
-
-You can hover over an image to view it without the overlay, and see the percentage brightness found by the calculation.
 
 ## Credits 
 
