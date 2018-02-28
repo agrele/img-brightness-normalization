@@ -107,9 +107,13 @@
 			'<div class="dark-overlay"></div>' +
 			'<div class="luminosity-text"></div>'
 
-		/* Get the div's children for manipulation later on */
+		/* Selects the two divs we just maden for manipulation later on */
 		var darkOverlay = div.querySelector('.dark-overlay')
 		var lumtext = div.querySelector('.luminosity-text')
+
+		/* Reminder : the "luminosity-text" is just for demo purposes.
+		It shows how bright the source image is, when you hover it.
+		You can remove the two lines that reference the luminosity-text above.*/
 
 		/* Get the div's image background url and apply to the style */
 		var imageUrl = div.dataset.background
@@ -128,12 +132,12 @@
 			/* The more opaque the overlay, the darker the image.
 			A coefficient of 1 will equate the overlay's opacity with the image's brightness.
 			A higher coefficient will leave more room for differences between the images, but 
-			will avoid darkening your images too much.
-			*/
+			will avoid darkening your images too much. */
 			var darknessCoefficient = 1.25
 			darkOverlay.style.opacity = luminosity / darknessCoefficient
 
-			/* Writes the luminosity percentage to the document so it can be viewed */
+			/* Writes the luminosity percentage to the document so it can be viewed.
+			This is just for demo, you can remove that part otherwise */
 			lumtext.innerText = "Source lum : " + Math.floor(luminosity*100) + "%"
 
 		}
