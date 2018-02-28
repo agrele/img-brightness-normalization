@@ -40,37 +40,52 @@
 	.imageBackground {
 
 		position: relative;
-		box-sizing: border-box;
-		width: 600px; height: 350px;
+
+		/* The following is just styling, you don't actually need this for the demo to work, it just makes it more pretty */
 		background-position: center center;
 		background-size: cover;
-		color: white;
-
+		box-sizing: border-box;
+		width: 600px; height: 350px;
 		display: flex;
 		justify-content: center;
 		align-items: center;
+
+		/* Especially this part, which deals with the text. Feel free to remove that and style any way you like */
+		color: white;
 		text-transform: uppercase;
-		font-family: Impact;
+		font-family: Impact; /* The original meme font */
 		font-size: 48px;
-		text-shadow: 2px 2px 4px black;
+		text-shadow: 2px 2px 4px black; /* Having black shadows around the white text will make it pop out more */
 
 	}
 
 	.dark-overlay {
+
+		/*	This is the element that is going to darken the background image
+			By default, it's entirely black, but the JS code will give it
+			some transparency by setting its opacity to a calculated value.
+			The brighter the image, the higher the opacity, to compensate ! */
+
 		content: "";
 		display: block;
 		position: absolute;
 		top: 0; left: 0;
 		width: 100%; height: 100%;
 		background-color: black;
+
 	}
 
+
+	/*	The following styles are just for the demo.
+		The luminosity-text shows the % brightness of the source image.
+		The 'Lorem Ipsum' text demonstrates the contrast between white
+		letters and the darkened background. */
 	.imageBackground:not(:hover) .luminosity-text { display: none; }
 	.imageBackground:hover::after { display: none; }
-
 	.imageBackground::after { content: 'Lorem Ipsum'; z-index: 2; }
 	.imageBackground:hover .dark-overlay { opacity: 0 !important; }
 
+	/* This is also just for the demo */
 	.intro {
 		opacity: .8;
 		margin: 2rem auto 4rem;
