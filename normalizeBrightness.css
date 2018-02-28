@@ -1,0 +1,17 @@
+.normalize-brightness { position: relative; }
+
+.dark-overlay {
+
+	/*	This is the element that is going to darken the background image
+	By default, it's entirely black, but the JS code will give it
+	some transparency by setting its opacity to a calculated value.
+	The brighter the image, the higher the opacity, to compensate ! */
+
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0; left: 0;
+	width: 100%; height: 100%;
+	background-color: black;
+
+}

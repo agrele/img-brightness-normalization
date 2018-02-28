@@ -1,0 +1,37 @@
+/* Custom styles for the demo*/
+
+.imageWrapper { display: flex; flex-wrap: wrap; justify-content: center; }
+
+.normalize-brightness {
+
+	background-position: center center;
+	background-size: cover;
+	box-sizing: border-box;
+	width: 600px; height: 350px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	color: white;
+	text-transform: uppercase;
+	font-family: Impact; /* The original meme font */
+	font-size: 48px;
+	text-shadow: 2px 2px 4px black; /* Having black shadows around the white text will make it pop out more */
+
+}
+
+/*	The brightness-text shows the % brightness of the source image.
+The 'Lorem Ipsum' text demonstrates the contrast between white
+letters and the darkened background. */
+.normalize-brightness:not(:hover) .brightness-text { display: none; }
+.normalize-brightness:hover::after { display: none; }
+.normalize-brightness::after { content: 'Lorem Ipsum'; z-index: 2; }
+.normalize-brightness:hover .dark-overlay { opacity: 0 !important; }
+
+.intro {
+	opacity: .8;
+	margin: 2rem auto 4rem;
+	max-width: 42rem;
+	font-size: 21px;
+	font-family: sans-serif;
+}

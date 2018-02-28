@@ -5,7 +5,7 @@
 <!-- Intro text -->
 <div class="intro">
 
-	<h1>Image brightness / luminosity normalizer for text over image</h1>
+	<h1>Image brightness / brightness normalizer for text over image</h1>
 
 	<p>In a work project, the UI guys had defined large parts of the interface as text over image. To improve legibility, I experimented with ways to automatically darken an image based on its original brightness.</p>
 
@@ -25,164 +25,20 @@
 
 <!-- The actual contents -->
 <div class="imageWrapper">
-	<div class="imageBackground" data-background="images/photo-1446770145316-10a05382c470.jpg"></div>
-	<div class="imageBackground" data-background="images/photo-1463194537334-3940784aa69a.jpg"></div>
-	<div class="imageBackground" data-background="images/photo-1489684141651-7e45b4e77b3a.jpg"></div>
-	<div class="imageBackground" data-background="images/photo-1483119624769-b1a73c256500.jpg"></div>
-	<div class="imageBackground" data-background="images/photo-1517875926585-feb5360f5073.jpg"></div>
-	<div class="imageBackground" data-background="images/photo-1518127864129-8d0834d765bc.jpg"></div>
+	<div class="normalize-brightness" data-background="images/photo-1446770145316-10a05382c470.jpg"></div>
+	<div class="normalize-brightness" data-background="images/photo-1463194537334-3940784aa69a.jpg"></div>
+	<div class="normalize-brightness" data-background="images/photo-1489684141651-7e45b4e77b3a.jpg"></div>
+	<div class="normalize-brightness" data-background="images/photo-1483119624769-b1a73c256500.jpg"></div>
+	<div class="normalize-brightness" data-background="images/photo-1517875926585-feb5360f5073.jpg"></div>
+	<div class="normalize-brightness" data-background="images/photo-1518127864129-8d0834d765bc.jpg"></div>
 </div>
 
-<style>
+<!-- demo styles and script -->
+<link rel="stylesheet" href="demoStyles.css" type="text/css">
+<script src="demoDisplayBrightness.js"></script>
 
-	.imageWrapper { display: flex; flex-wrap: wrap; justify-content: center; }
-
-	.imageBackground {
-
-		position: relative;
-
-		/* The following is just styling, you don't actually need this for the demo to work, it just makes it more pretty */
-		background-position: center center;
-		background-size: cover;
-		box-sizing: border-box;
-		width: 600px; height: 350px;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-
-		/* Especially this part, which deals with the text. Feel free to remove that and style any way you like */
-		color: white;
-		text-transform: uppercase;
-		font-family: Impact; /* The original meme font */
-		font-size: 48px;
-		text-shadow: 2px 2px 4px black; /* Having black shadows around the white text will make it pop out more */
-
-	}
-
-	.dark-overlay {
-
-		/*	This is the element that is going to darken the background image
-			By default, it's entirely black, but the JS code will give it
-			some transparency by setting its opacity to a calculated value.
-			The brighter the image, the higher the opacity, to compensate ! */
-
-		content: "";
-		display: block;
-		position: absolute;
-		top: 0; left: 0;
-		width: 100%; height: 100%;
-		background-color: black;
-
-	}
-
-
-	/*	The following styles are just for the demo.
-		The luminosity-text shows the % brightness of the source image.
-		The 'Lorem Ipsum' text demonstrates the contrast between white
-		letters and the darkened background. */
-	.imageBackground:not(:hover) .luminosity-text { display: none; }
-	.imageBackground:hover::after { display: none; }
-	.imageBackground::after { content: 'Lorem Ipsum'; z-index: 2; }
-	.imageBackground:hover .dark-overlay { opacity: 0 !important; }
-
-	/* This is also just for the demo */
-	.intro {
-		opacity: .8;
-		margin: 2rem auto 4rem;
-		max-width: 42rem;
-		font-size: 21px;
-		font-family: sans-serif;
-	}
-
-</style>
-
-
-<script>
-
-	document.querySelectorAll('.imageBackground').forEach(function(div) {
-
-		/* Create the dark overlay that will cover the div */
-		div.insertAdjacentHTML('afterbegin', '<div class="dark-overlay"></div>')
-		
-		/* Selects the overlay for manipulation later on */
-		var darkOverlay = div.querySelector('.dark-overlay')
-
-		/* Get the div's image background url and apply to the style */
-		var imageUrl = div.dataset.background
-		div.style.backgroundImage = "url('" + imageUrl + "')"
-
-		/* Prepare a dom image for canvas manipulation*/
-		var background = new Image()
-		background.src = imageUrl
-
-		/* When the dom image loads, proceed with the calculations */
-		background.onload = function() {
-
-			var luminosity = getLuminosity(background)
-			div.dataset.luminosity = luminosity
-
-			/* The more opaque the overlay, the darker the image.
-			A coefficient of 1 will equate the overlay's opacity with the image's brightness.
-			A higher coefficient will leave more room for differences between the images, but 
-			will avoid darkening your images too much. */
-			var darknessCoefficient = 1.25
-			darkOverlay.style.opacity = luminosity / darknessCoefficient
-
-
-			/* This extra bit of code is here just for the demo,
-			To show, upon hover, how bright the original image was.
-			Remove that if you want to use the code yourself. */
-			div.insertAdjacentHTML('afterbegin', '<div class="luminosity-text"></div>')
-			var lumtext = div.querySelector('.luminosity-text')
-			lumtext.innerText = "Source lum : " + Math.floor(luminosity*100) + "%"
-
-		}
-	})
-
-
-	function getLuminosity(img) {
-
-		/* Returns a luminosity value between 0 and 1 based on the image's brightness */
-
-		var rgb = getAverageColor(img)
-		var luminosity255 = (rgb.r * 2 + rgb.g *3 + rgb.b) / 6
-		var luminosity = luminosity255 / 255
-		return luminosity
-
-	}
-
-
-	function getAverageColor(img) {
-
-		/* Returns an RGB object of an image's average color */
-
-		var canvas = document.createElement('canvas');
-		var ctx = canvas.getContext('2d');
-		var width = canvas.width = img.naturalWidth;
-		var height = canvas.height = img.naturalHeight;
-
-		ctx.drawImage(img, 0, 0);
-
-		var imageData = ctx.getImageData(0, 0, width, height);
-		var data = imageData.data;
-		var r = 0;
-		var g = 0;
-		var b = 0;
-
-		for (var i = 0; i < data.length; i += 4) {
-			r += data[i];
-			g += data[i+1];
-			b += data[i+2];
-		}
-
-		r = Math.floor(r / (data.length / 4));
-		g = Math.floor(g / (data.length / 4));
-		b = Math.floor(b / (data.length / 4));
-
-		return { r: r, g: g, b: b };
-
-	}
-
-</script>
+<!-- using the plugin -->
+<link rel="stylesheet" href="normalizeBrightness.css" type="text/css">
+<script onload="normalizeBrightness(1.25, demoDisplayBrightness);" src="normalizeBrightness.js"></script>
 
 </html>
