@@ -1,7 +1,6 @@
+function normalizeBrightness(coeff=1.25, callback=null) {
 
-function normalizeBrightness(coeff=1, callback=null) {
-
-	document.querySelectorAll('.normalize-brightness').forEach(function(div) {
+	document.querySelectorAll('[data-background-image]').forEach(function(div) {
 
 		/* Create the dark overlay that will cover the div */
 		div.insertAdjacentHTML('afterbegin', '<div class="dark-overlay"></div>')
@@ -10,7 +9,7 @@ function normalizeBrightness(coeff=1, callback=null) {
 		var darkOverlay = div.querySelector('.dark-overlay')
 
 		/* Get the div's image background url and apply to the style */
-		var imageUrl = div.dataset.background
+		var imageUrl = div.dataset.backgroundImage
 		div.style.backgroundImage = "url('" + imageUrl + "')"
 
 		/* Prepare a dom image for canvas manipulation*/

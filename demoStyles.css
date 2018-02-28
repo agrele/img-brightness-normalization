@@ -2,7 +2,7 @@
 
 .imageWrapper { display: flex; flex-wrap: wrap; justify-content: center; }
 
-.normalize-brightness {
+[data-background-image] {
 
 	background-position: center center;
 	background-size: cover;
@@ -23,10 +23,10 @@
 /*	The brightness-text shows the % brightness of the source image.
 The 'Lorem Ipsum' text demonstrates the contrast between white
 letters and the darkened background. */
-.normalize-brightness:not(:hover) .brightness-text { display: none; }
-.normalize-brightness:hover::after { display: none; }
-.normalize-brightness::after { content: 'Lorem Ipsum'; z-index: 2; }
-.normalize-brightness:hover .dark-overlay { opacity: 0 !important; }
+[data-background-image]:not(:hover) .brightness-text { display: none; }
+[data-background-image]:hover::after { display: none; }
+[data-background-image]::after { content: 'Lorem Ipsum'; z-index: 2; }
+[data-background-image]:hover .dark-overlay { opacity: 0 !important; }
 
 .intro {
 	opacity: .8;

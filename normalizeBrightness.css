@@ -1,6 +1,6 @@
-.normalize-brightness { position: relative; }
+[data-background-image] { position: relative; }
 
-.dark-overlay {
+[data-background-image] .dark-overlay {
 
 	/*	This is the element that is going to darken the background image
 	By default, it's entirely black, but the JS code will give it
