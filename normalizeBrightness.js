@@ -2,15 +2,9 @@ function normalizeBrightness(coeff=1.25, callback=null) {
 
 	document.querySelectorAll('[data-background-image]').forEach(function(div) {
 
-		/* Create the dark overlay that will cover the div */
-		div.insertAdjacentHTML('afterbegin', '<div class="dark-overlay"></div>')
-		
-		/* Selects the overlay for manipulation later on */
-		var darkOverlay = div.querySelector('.dark-overlay')
-
 		/* Get the div's image background url and apply to the style */
 		var imageUrl = div.dataset.backgroundImage
-		div.style.backgroundImage = "url('" + imageUrl + "')"
+		div.style.background = "url('" + imageUrl + "')"
 
 		/* Prepare a dom image for canvas manipulation*/
 		var background = new Image()
@@ -26,8 +20,12 @@ function normalizeBrightness(coeff=1.25, callback=null) {
 			A coefficient of 1 will equate the overlay's opacity with the image's brightness.
 			A higher coefficient will leave more room for differences between the images, but 
 			will avoid darkening your images too much. */
-			darkOverlay.style.opacity = brightness / coeff
-
+			var darkOverlayOpacity = brightness / coeff
+			div.style.background =  `
+				linear-gradient(rgba(0,0,0,${darkOverlayOpacity}),
+				rgba(0,0,0,${darkOverlayOpacity})),
+				url(${imageUrl})
+				`
 			/* In case you want to do something else with that div, while you're at it*/
 			callback(div)
 
